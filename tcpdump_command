@@ -1,0 +1,2 @@
+ sudo tcpdump -nn -vvv -XX  udp and dst port 9
+
