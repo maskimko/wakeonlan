@@ -23,7 +23,6 @@ public class App
 	} catch (NumberFormatException nex) {
 		throw new IllegalArgumentException("Cannot parse hexademical number. Illegal character.");
 	}
-	return bytes;
  }
 
     public static void main( String[] args )
