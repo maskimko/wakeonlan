@@ -37,7 +37,7 @@ public byte[] getMagic(byte[] bts) throws IllegalArgumentException{
 		for (int i = 0; i < 6; i++) {
 			wakeUp[i]=(byte)0xff;
 		}
-		for (int i = 6; i < wakeUp.length; i += 6){
+		for (int i = 6; i < wakeUp.length; i++ ){
 			wakeUp[i] = bts[i % 6];
 		}
  	return wakeUp;
