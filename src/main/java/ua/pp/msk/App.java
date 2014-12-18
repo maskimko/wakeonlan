@@ -70,7 +70,7 @@ public byte[] getMagic(byte[] bts) throws IllegalArgumentException{
 
 	App app = new App();
 	try {
-		InetAddress ip = InetAddress.getByName("172.19.2.255");
+		InetAddress ip = InetAddress.getByName("255.255.255.255");
 		app.wakeOnLan(ip, "50:e5:49:39:c0:bc");
     	} catch (Exception e) {
 		System.err.println("Error: " + e.getMessage());
