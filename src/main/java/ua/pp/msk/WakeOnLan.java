@@ -2,6 +2,7 @@ package ua.pp.msk;
 
 import java.io.*;
 import java.net.*;
+import java.util.Arrays;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
@@ -50,11 +51,14 @@ public class WakeOnLan {
 //		for (int i = 6; i < wakeUp.length; i++ ){
 //			wakeUp[i] = bts[i % 6];
 //		}
-        System.out.println("bts len" + bts.length);
-        System.out.println("wakeUp len" + wakeUp.length);
+        Logger.getLogger(WakeOnLan.class.getName()).debug("Mac address bytes length " + bts.length);
+        Logger.getLogger(WakeOnLan.class.getName()).debug("Mac address bytes " + Arrays.toString(bts));
         for (int i = 6; i < wakeUp.length; i += bts.length) {
             System.arraycopy(bts, 0, wakeUp, i, bts.length);
         }
+        Logger.getLogger(WakeOnLan.class.getName()).debug("Magic bytes length " + wakeUp.length);
+        Logger.getLogger(WakeOnLan.class.getName()).debug("Magic bytes " + Arrays.toString(wakeUp));
+
         return wakeUp;
     }
 
@@ -67,7 +71,7 @@ public class WakeOnLan {
             socket = new DatagramSocket();
             DatagramPacket dPack = new DatagramPacket(magic, magic.length, ip, PORT);
             socket.send(dPack);
-            System.out.println("WakeOnLan packet sent");
+            Logger.getLogger(WakeOnLan.class.getName()).info("WakeOnLan packet sent");
         } catch (IOException e) {
             throw new IOException("Failed to sent datagram packet.", e);
         } finally {
@@ -82,8 +86,7 @@ public class WakeOnLan {
     }
 
     public static void main(String[] args) {
-        System.out.println("WakeOnLan java utility");
-        System.out.println("Usage: java -jar wakeonlan-<ver>.jar  <MAC address> [host or broadcast address]");
+        Logger.getLogger(WakeOnLan.class.getName()).info("Welcome to WakeOnLan java utility");
         String addrString = BROADCASTADDR;
         InetAddress ip;
         WakeOnLan app = new WakeOnLan();
@@ -97,7 +100,7 @@ public class WakeOnLan {
             CommandLine cl = parser.parse(cmdOpts, args);
             if (cl.hasOption("help")) {
                 HelpFormatter helpFormatter = new HelpFormatter();
-                helpFormatter.printHelp("Usage: java -jar wakeonlan-<version>.jar <options>", cmdOpts);
+                helpFormatter.printHelp("Usage: java -jar wakeonlan-jar-with-dependencies.jar <options>", cmdOpts);
                 System.exit(0);
             }
             if (!cl.hasOption("mac")) {
